@@ -148,3 +148,26 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
 }
+
+# Mouse control
+mode "mouse control" {
+  bindsym w exec xdotool mousemove_relative -- 0 -10 
+  bindsym a exec xdotool mousemove_relative -- -10 0 
+  bindsym s exec xdotool mousemove_relative -- 0 10 
+  bindsym d exec xdotool mousemove_relative -- 10 0 
+
+  bindsym Shift+w exec xdotool mousemove_relative -- 0 -50 
+  bindsym Shift+a exec xdotool mousemove_relative -- -50 0 
+  bindsym Shift+s exec xdotool mousemove_relative -- 0 50 
+  bindsym Shift+d exec xdotool mousemove_relative -- 50 0 
+
+  bindsym o exec xdotool click 1
+  bindsym p exec xdotool click 3 
+  bindsym k exec xdotool click 4 
+  bindsym m exec xdotool click 5 
+
+  bindsym Escape mode "default" 
+}
+
+bindsym $mod+m mode "mouse control"
+

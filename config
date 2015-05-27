@@ -171,17 +171,6 @@ mode "mouse control" {
 
 bindsym $mod+m mode "mouse control"
 
-# System functions
-set $sysmode "(S)hutdown (L)ogout (R)eboot Loc(k)"
-mode $sysmode {
-  bindsym s exec --no-startup-id ~/.i3/bin/i3shutdown, mode "default"
-  bindsym l exec --no-startup-id ~/.i3/bin/i3logout logout, mode "default"
-  bindsym r exec --no-startup-id ~/.i3/bin/i3reboot, mode "default"
-  bindsym k exec --no-startup-id ~/.i3/bin/i3lock, mode "default"
-
-  bindsym Escape mode "default"
-}
-
-bindsym $mod+Escape mode $sysmode
+bindsym $mod+Escape exec ~/.i3/bin/i3lock
 
 exec_always ~/.i3/bin/i3init

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+xscreensaver -no-splash &
+nm-applet &

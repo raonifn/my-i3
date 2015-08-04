@@ -182,4 +182,7 @@ bindsym $mod+Shift+w mode "move workspace"
 
 bindsym $mod+Escape exec --no-startup-id ~/.i3/bin/i3lock
 
+bindsym $mod+n         exec xrandr --output HDMI1 --off
+bindsym $mod+shift+n   exec xrandr --output HDMI1 --auto --right-of eDP1
+
 exec_always ~/.i3/bin/i3init

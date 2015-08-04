@@ -1,0 +1,3 @@
+#!/bin/bash
+pacmd set-default-sink alsa_output.usb-Sony_Computer_Entertainment_Wireless_Stereo_Headset-00-Headset.analog-stereo
+pacmd set-default-source alsa_output.usb-Sony_Computer_Entertainment_Wireless_Stereo_Headset-00-Headset.analog-stereo.monitor 

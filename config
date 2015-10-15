@@ -171,6 +171,10 @@ mode "mouse control" {
 
 bindsym $mod+m mode "mouse control"
 
+bindsym $mod+F9 exec --no-startup-id ~/.i3/bin/spotify-controller play
+bindsym $mod+Next exec --no-startup-id ~/.i3/bin/spotify-controller next
+bindsym $mod+Prior exec --no-startup-id ~/.i3/bin/spotify-controller prev
+
 mode "move workspace" {
   bindsym Down exec --no-startup-id i3-msg -t command move workspace to down
   bindsym Up exec --no-startup-id i3-msg -t command move workspace to up

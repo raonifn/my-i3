@@ -35,9 +35,12 @@ function track {
 
 function track-format {
   track \
-  | grep -E "(title)|(album)|(artist)" \
-  | sed 's/^\(.\)/\U\1/' \
-  | column -t -s'|'
+  | grep -E "(title)|(album)|(artist)" 
+}
+
+function album-url {
+  trackid=$(track-id)
+  curl -s https://api.spotify.com/v1/tracks/$trackid | jq '.album.images[0].url' | sed 's/"//g'
 }
 
 case $1 in
@@ -64,9 +67,7 @@ case $1 in
 	track-id
 	;;
    "album-url")
-	trackid=$(track-id)
-	image=$(curl -s https://api.spotify.com/v1/tracks/$trackid | jq '.album.images[0].url' | sed 's/"//g')
-	echo $image
+	album-url
 	;;
     *)
         echo "Unknown command: " $1

@@ -1,24 +1,34 @@
-#!/bin/bash -xe
+#!/bin/bash -e
  
 dir=$(dirname $0)
 
-trackid=$($dir/spotify-controller getTrackId)
-oldtrackid=''
-if [[ -e /tmp/bg.info ]]; then
-  oldtrackid=$(cat /tmp/bg.info)
-fi
-if [[ $trackid == $oldtrackid ]]; then
-  exit 0
-fi
+function check_same_track {
+  trackid=$($dir/spotify-controller getTrackId)
+  oldtrackid=''
+  if [[ -e /tmp/bg.info ]]; then
+    oldtrackid=$(cat /tmp/bg.info)
+  fi
+  if [[ $trackid == $oldtrackid ]]; then
+    exit 0
+  fi
+}
 
-image=$($dir/spotify-controller getAlbumUrl)
-imagename=$(echo $image | sed "s/.*\/\([^\/]\)/\1/g")
+function check_same_album {
+  image=$($dir/spotify-controller getAlbumUrl)
+  imagename=$(echo $image | sed "s/.*\/\([^\/]\)/\1/g")
 
-if [[ -e /tmp/$imagename.jpg ]]; then
-  exit 0
-fi
+  if [[ -e /tmp/$imagename.jpg ]]; then
+    exit 0
+  fi
+}
 
-echo -n $trackid > /tmp/bg.info
-curl -s $image -o /tmp/$imagename.jpg
+function set_bg {
+  echo -n $trackid > /tmp/bg.info
+  curl -s $image -o /tmp/$imagename.jpg
 
-feh --bg-max /tmp/$imagename.jpg
+  feh --bg-max /tmp/$imagename.jpg
+}
+
+check_same_track
+check_same_album
+set_bg

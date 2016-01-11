@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -xe
  
 dir=$(dirname $0)
 
@@ -11,9 +11,14 @@ if [[ $trackid == $oldtrackid ]]; then
   exit 0
 fi
 
-image=$(curl -s https://api.spotify.com/v1/tracks/$trackid | jq '.album.images[0].url' | sed 's/"//g')
+image=$($dir/spotify-controller getAlbumUrl)
+imagename=$(echo $image | sed "s/.*\/\([^\/]\)/\1/g")
+
+if [[ -e /tmp/$imagename.jpg ]]; then
+  exit 0
+fi
 
 echo -n $trackid > /tmp/bg.info
-curl -s $image -o /tmp/bg.jpg
+curl -s $image -o /tmp/$imagename.jpg
 
-feh --bg-max /tmp/bg.jpg
+feh --bg-max /tmp/$imagename.jpg

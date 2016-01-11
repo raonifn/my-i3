@@ -1,16 +1,20 @@
-#!/bin/bash
+#!/bin/bash -e
 
 if [ $# -lt 1 ]
 then
-        echo "No command?"
-        exit
+  echo "No command?"
+  exit 1
 fi
 
 if [ "$(pidof spotify)" = "" ] 
 then
   echo "Spotify is not running"
-  exit
+  exit 2
 fi
+
+function trackid {
+	trackid=$(dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'  | grep trackid -A 1 | tail -1 | sed 's/.*".*track:\(.*\)"[^"]*$/\1/')
+}
 
 case $1 in
     "play")
@@ -26,7 +30,13 @@ case $1 in
         dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus'|grep 'string "[^"]*"'|sed 's/.*"\(.*\)"[^"]*$/\1/'
         ;;
    "getTrackId")
-	dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'  | grep trackid -A 1 | tail -1 | sed 's/.*".*track:\(.*\)"[^"]*$/\1/'
+	trackid
+	echo $trackid
+	;;
+   "getAlbumUrl")
+	trackid
+	image=$(curl -s https://api.spotify.com/v1/tracks/$trackid | jq '.album.images[0].url' | sed 's/"//g')
+	echo $image
 	;;
     *)
         echo "Unknown command: " $1

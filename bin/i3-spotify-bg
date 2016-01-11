@@ -1,0 +1,8 @@
+#!/bin/bash
+
+dir=$(dirname $0)
+
+while [ 1 ]; do
+  $dir/spotify-bg
+  sleep 1
+done

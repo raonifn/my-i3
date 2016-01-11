@@ -3,7 +3,7 @@
 dir=$(dirname $0)
 
 function check_same_track {
-  trackid=$($dir/spotify-controller getTrackId)
+  trackid=$($dir/spotify-controller track-id)
   oldtrackid=''
   if [[ -e /tmp/bg.info ]]; then
     oldtrackid=$(cat /tmp/bg.info)
@@ -14,7 +14,7 @@ function check_same_track {
 }
 
 function check_same_album {
-  image=$($dir/spotify-controller getAlbumUrl)
+  image=$($dir/spotify-controller album-url)
   imagename=$(echo $image | sed "s/.*\/\([^\/]\)/\1/g")
 
   if [[ -e /tmp/$imagename.jpg ]]; then

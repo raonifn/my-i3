@@ -25,10 +25,9 @@ case $1 in
    "getStatus")
         dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus'|grep 'string "[^"]*"'|sed 's/.*"\(.*\)"[^"]*$/\1/'
         ;;
-   "getImage")
+   "getTrackId")
 	trackid=$(dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata'  | grep trackid -A 1 | tail -1 | sed 's/.*".*track:\(.*\)"[^"]*$/\1/')
-	url=$(curl -s https://api.spotify.com/v1/tracks/$trackid | jq '.album.images[0].url' | sed 's/"//g')
-	echo $url
+	echo $trackid
 	;;
     *)
         echo "Unknown command: " $1

@@ -1,8 +1,19 @@
 #!/bin/bash
-
+ 
 dir=$(dirname $0)
 
-image=$($dir/spotify-controller getImage)
+trackid=$($dir/spotify-controller getTrackId)
+oldtrackid=''
+if [[ -e /tmp/bg.info ]]; then
+  oldtrackid=$(cat /tmp/bg.info)
+fi
+if [[ $trackid == $oldtrackid ]]; then
+  exit 0
+fi
+
+image=$(curl -s https://api.spotify.com/v1/tracks/$trackid | jq '.album.images[0].url' | sed 's/"//g')
+
+echo -n $trackid > /tmp/bg.info
 curl -s $image -o /tmp/bg.jpg
 
 feh --bg-max /tmp/bg.jpg

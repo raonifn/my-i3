@@ -147,7 +147,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         #status_command py3status -c ~/.i3/i3status.conf
-        status_command i3status 
+        status_command i3status -c ~/.i3/i3status.conf 
 }
 
 # Mouse control

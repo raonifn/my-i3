@@ -1,5 +1,5 @@
 #!/bin/bash
 
-xscreensaver -no-splash &
+#xscreensaver -no-splash &
 killall nm-applet
 nm-applet &

@@ -4,31 +4,38 @@ dir=$(dirname $0)
 
 function check_same_track {
   trackid=$($dir/spotify-controller track-id)
-  oldtrackid=''
-  if [[ -e /tmp/bg.info ]]; then
-    oldtrackid=$(cat /tmp/bg.info)
+  currenttrackid=''
+  if [[ -e /tmp/bg.track ]]; then
+    currentttrackid=$(cat /tmp/bg.track)
   fi
-  if [[ $trackid == $oldtrackid ]]; then
+  if [[ $trackid == $currenttrackid ]]; then
     exit 0
   fi
+
+  echo -n $trackid > /tmp/bg.track
 }
 
-function check_same_album {
+function download_album {
   image=$($dir/spotify-controller album-url)
   imagename=$(echo $image | sed "s/.*\/\([^\/]\)/\1/g")
 
-  if [[ -e /tmp/$imagename.jpg ]]; then
+  if [[ ! -e /tmp/$imagename.jpg ]]; then
+    curl -s $image -o /tmp/$imagename.jpg
+  fi
+
+  currentimage=''
+  if [[ -e /tmp/bg.image ]]; then
+    currentimage=$(cat /tmp/bg.image)
+  fi
+  
+  if [[ $image == $currentimage ]]; then
     exit 0
   fi
-}
 
-function set_bg {
-  echo -n $trackid > /tmp/bg.info
-  curl -s $image -o /tmp/$imagename.jpg
-
-  feh --bg-max /tmp/$imagename.jpg
+  echo -n $image > /tmp/bg.image
 }
 
 check_same_track
-check_same_album
-set_bg
+download_album
+
+feh --bg-max /tmp/$imagename.jpg

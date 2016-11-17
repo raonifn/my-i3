@@ -38,4 +38,6 @@ function download_album {
 check_same_track
 download_album
 
-feh --bg-max /tmp/$imagename.jpg
+imagefile="/tmp/$imagename.jpg"
+echo -n "$imagefile" > /tmp/bg.file
+feh --bg-max $imagefile

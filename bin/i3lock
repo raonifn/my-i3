@@ -1,3 +1,10 @@
 #!/bin/bash
 #xscreensaver-command --lock
-i3lock -d
+
+if [[ -e /tmp/bg.file ]]; then
+  file=$(cat /tmp/bg.file)
+  convert $file -blur 0x3 $file.png
+  i3lock -d -ti $file.png
+else
+  i3lock -d
+fi

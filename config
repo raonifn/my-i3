@@ -11,9 +11,23 @@
 
 set $mod Mod4
 
+focus_follows_mouse no
+set $wp1 "1: "
+set $wp2 "2: "
+set $wp3 "3: "
+set $wp4 "4: "
+set $wp5 "5: "
+set $wp6 "6"
+set $wp7 "7"
+set $wp8 "8: "
+set $wp9 "9"
+set $wp10 "10: "
+
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font pango: System San Francisco Display 10, FontAwesome 9 
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
@@ -87,28 +101,28 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace $wp1
+bindsym $mod+2 workspace $wp2
+bindsym $mod+3 workspace $wp3
+bindsym $mod+4 workspace $wp4
+bindsym $mod+5 workspace $wp5
+bindsym $mod+6 workspace $wp6
+bindsym $mod+7 workspace $wp7
+bindsym $mod+8 workspace $wp8
+bindsym $mod+9 workspace $wp9
+bindsym $mod+0 workspace $wp10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace $wp1
+bindsym $mod+Shift+2 move container to workspace $wp2
+bindsym $mod+Shift+3 move container to workspace $wp3
+bindsym $mod+Shift+4 move container to workspace $wp4
+bindsym $mod+Shift+5 move container to workspace $wp5
+bindsym $mod+Shift+6 move container to workspace $wp6
+bindsym $mod+Shift+7 move container to workspace $wp7
+bindsym $mod+Shift+8 move container to workspace $wp8
+bindsym $mod+Shift+9 move container to workspace $wp9
+bindsym $mod+Shift+0 move container to workspace $wp10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -148,6 +162,9 @@ bindsym $mod+r mode "resize"
 bar {
         #status_command py3status -c ~/.i3/i3status.conf
         status_command i3status -c ~/.i3/i3status.conf 
+	#status_command i3blocks #-c ~/.i3/i3blocks.conf
+
+        font pango: System San Francisco Display 10, FontAwesome 9 
 }
 
 # Mouse control
@@ -175,6 +192,8 @@ bindsym $mod+m mode "mouse control"
 bindsym $mod+F9 exec --no-startup-id ~/.i3/bin/spotify-controller play
 bindsym $mod+Next exec --no-startup-id ~/.i3/bin/spotify-controller next
 bindsym $mod+Prior exec --no-startup-id ~/.i3/bin/spotify-controller prev
+bindsym $mod+Shift+F9 exec --no-startup-id killall spotify
+bindsym $mod+Mod1+F9 exec --no-startup-id spotify
 
 mode "move workspace" {
   bindsym Down exec --no-startup-id i3-msg -t command move workspace to down

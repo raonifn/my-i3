@@ -6,3 +6,4 @@ dir=$(dirname $0)
 killall nm-applet
 $dir/i3-spotify-bg &
 nm-applet &
+$dir/toggleTouchScreen.sh

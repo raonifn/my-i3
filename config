@@ -45,16 +45,17 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
+bindsym $mod+Shift+d exec networkmanager_dmenu
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+ccedilla focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -63,10 +64,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+ccedilla move right
+#bindsym $mod+Shift+h move left
+#bindsym $mod+Shift+j move down
+#bindsym $mod+Shift+k move up
+#bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -75,10 +76,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+Shift+h split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+Shift+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -194,20 +195,35 @@ bindsym $mod+Next exec --no-startup-id ~/.i3/bin/spotify-controller next
 bindsym $mod+Prior exec --no-startup-id ~/.i3/bin/spotify-controller prev
 bindsym $mod+Shift+F9 exec --no-startup-id killall spotify
 bindsym $mod+Mod1+F9 exec --no-startup-id spotify
+bindsym $mod+Shift+F10 exec --no-startup-id killall slack 
 
 mode "move workspace" {
-  bindsym Down exec --no-startup-id i3-msg -t command move workspace to down
-  bindsym Up exec --no-startup-id i3-msg -t command move workspace to up
-  bindsym Left exec --no-startup-id i3-msg -t command move workspace to left
-  bindsym Right exec --no-startup-id i3-msg -t command move workspace to right
+  bindsym Down move workspace to down
+  bindsym Up move workspace to up
+  bindsym Left move workspace to left
+  bindsym Right move workspace to right
+
+  bindsym h  move workspace to output left
+  bindsym j  move workspace to output down
+  bindsym k  move workspace to output up
+  bindsym l  move workspace to output right
+
   bindsym Escape mode "default"
 }
 bindsym $mod+Shift+w mode "move workspace"
+bindsym $mod+Shift+x  move workspace to output right
 
 bindsym $mod+Escape exec --no-startup-id ~/.i3/bin/i3lock
 
-bindsym $mod+n         exec xrandr --output HDMI1 --off
-bindsym $mod+shift+n   exec xrandr --output HDMI1 --auto --right-of eDP1
+#Monitor control
+mode "monitor control" {
+  bindsym s         exec xrandr --output edp-1 --primary --auto --output DP-1 --off --output HDMI-1 --off
+  bindsym d         exec xrandr --output edp-1 --primary --auto --output DP-1 --off  --output HDMI-1 --auto --left-of eDP-1
+  bindsym c         exec xrandr --output DP-1 --auto --output HDMI-1 --off --output eDP-1 --primary --auto --right-of DP-1
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+n mode "monitor control"
 
 bindsym $mod+t exec --no-startup-id ~/.i3/bin/toggleTouchScreen.sh
 

@@ -1,10 +1,34 @@
 #!/bin/bash
-#xscreensaver-command --lock
+# Dependencies:
+# imagemagick
+# i3lock
+# scrot (optional but default)
 
-if [[ -e /tmp/bg.file ]]; then
-  file=$(cat /tmp/bg.file)
-  convert $file -blur 0x3 $file.png
-  i3lock -d -ti $file.png
+IMAGE=/tmp/i3lock.png
+SCREENSHOT="scrot $IMAGE"
+
+#BLURTYPE="0x5"
+#BLURTYPE="0x2"
+#BLURTYPE="5x2"
+#BLURTYPE="2x8"
+#BLURTYPE="2x3"
+BLURTYPE="0x3"
+
+BLUR="-blur $BLURTYPE"
+#PIXEL="-scale 25% -scale 400%"
+#GRAY="-colorspace Gray -gamma 0.7"
+#SEPIA="-sepia-tone 80%"
+#CHARCOAL="-charcoal 5 "
+#PAINT="-paint 1"
+#SPREAD="-interpolate nearest -virtual-pixel mirror -spread 5"
+#VIGNETTE="-background black -vignette 0x5" 
+
+# Get the screenshot, add the blur and lock the screen with it
+$SCREENSHOT
+if [[ -e $IMAGE ]]; then
+  convert $IMAGE $VIGNETTE $BLUR $PIXEL $SPREAD $CHARCOAL $PAINT $GREY $SEPIA $IMAGE
+  i3lock -i $IMAGE
+  rm $IMAGE
 else
-  i3lock -d
+  i3lock
 fi

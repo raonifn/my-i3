@@ -1,0 +1,21 @@
+#!/bin/bash -e
+
+monitors=$(xrandr | grep " connected" | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
+all_monitors=$(xrandr | grep "\(dis\)\?connected" | sed -e "s/\([A-Z0-9]\+\) \(dis\)\?connected.*/\1/")
+
+if [[ $# -eq 0 ]]; then 
+  order="$@"
+else
+  order="$monitors"
+fi
+
+for monitor in $all_monitors; do
+  output="$output --output $monitor"
+  if [[ $monitors == *"$monitor"* ]]; then
+    output="$output --auto"
+  else
+    output="$output --off"
+  fi
+done
+
+echo $output

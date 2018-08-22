@@ -4,6 +4,6 @@ dir=$(dirname $0)
 
 #xscreensaver -no-splash &
 killall nm-applet
-$dir/i3-spotify-bg &
+#$dir/i3-spotify-bg &
 nm-applet &
-$dir/toggleTouchScreen.sh
+xset -b

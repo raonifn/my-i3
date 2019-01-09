@@ -12,7 +12,7 @@ SCREENSHOT="scrot $IMAGE"
 #BLURTYPE="5x2"
 #BLURTYPE="2x8"
 #BLURTYPE="2x3"
-BLURTYPE="0x3"
+BLURTYPE="0x6"
 
 BLUR="-blur $BLURTYPE"
 #PIXEL="-scale 25% -scale 400%"

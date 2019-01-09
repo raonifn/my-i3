@@ -20,7 +20,7 @@ function download_album {
   imagename=$(echo $image | sed "s/.*\/\([^\/]\)/\1/g")
 
   if [[ ! -e /tmp/$imagename.jpg ]]; then
-    curl -s $image -o /tmp/$imagename.jpg
+    curl -L -s $image -o /tmp/$imagename.jpg
   fi
 
   currentimage=''

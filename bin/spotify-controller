@@ -35,12 +35,17 @@ function track {
 
 function track-format {
   track \
-  | grep -E "(title)|(album)|(artist)" 
+  | grep -E "(title)|(album)|(artist)(artUrl)" 
 }
 
+#function album-url {
+#  trackid=$(track-id)
+#  curl -s https://api.spotify.com/v1/tracks/$trackid | jq '.album.images[0].url' | sed 's/"//g'
+#}
 function album-url {
-  trackid=$(track-id)
-  curl -s https://api.spotify.com/v1/tracks/$trackid | jq '.album.images[0].url' | sed 's/"//g'
+  track \
+  | grep artUrl \
+  | cut -d'|' -f2
 }
 
 case $1 in

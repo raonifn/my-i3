@@ -23,12 +23,22 @@ BLUR="-blur $BLURTYPE"
 #SPREAD="-interpolate nearest -virtual-pixel mirror -spread 5"
 #VIGNETTE="-background black -vignette 0x5" 
 
+
+# suspend message display
+#pkill -u "$USER" -USR1 dunst
+
 # Get the screenshot, add the blur and lock the screen with it
 $SCREENSHOT
 if [[ -e $IMAGE ]]; then
-  convert $IMAGE $VIGNETTE $BLUR $PIXEL $SPREAD $CHARCOAL $PAINT $GREY $SEPIA $IMAGE
-  i3lock -i $IMAGE
-  rm $IMAGE
+#  convert $IMAGE $VIGNETTE $BLUR $PIXEL $SPREAD $CHARCOAL $PAINT $GREY $SEPIA $IMAGE
+  corrupter -mag 5 -boffset 10 $IMAGE /tmp/out.png
+  i3lock -i /tmp/out.png
+  rm $IMAGE /tmp/out.png
 else
   i3lock
 fi
+
+# resume message display
+#pkill -u "$USER" -USR2 dunst
+
+

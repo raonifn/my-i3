@@ -2,7 +2,7 @@
 
 dir=$(dirname $0)
 
-while [ 1 ]; do
+while ps -e -o command | grep -q '^i3\b'; do
   $dir/spotify-bg
   sleep 1
 done

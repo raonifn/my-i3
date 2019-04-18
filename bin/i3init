@@ -2,9 +2,10 @@
 
 dir=$(dirname $0)
 
-#xscreensaver -no-splash &
 killall nm-applet
-compton -b
+killall i3-spotify-bg
+#compton -b
+xcompmgr &
 $dir/i3-spotify-bg &
 nm-applet &
 xset -b

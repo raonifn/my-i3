@@ -161,14 +161,19 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	status_command bumblebee-status -m docker_ps spotify disk nic cpu memory battery datetime pasink pasource -p datetime.format="%Y-%m-%d %H:%M" memory.usedonly="True" disk.format="{left}" nic.exclude="br-,veth,docker,lo" -t iceberg-powerline
-	output HDMI-1
+	status_command bumblebee-status -m docker_ps spotify disk nic cpu memory battery datetime pasink pasource -p datetime.format="%Y-%m-%d %H:%M" memory.usedonly="True" disk.format="{left}" nic.exclude="br-,veth,vnet,virbr,docker,lo" -t iceberg-powerline
+	output HDMI1
 	position top
 }
 bar {
-	output eDP-1
+	output eDP1
 	position top
 	status_command bumblebee-status -m disk cpu memory battery datetime pasink pasource -p datetime.format="%Y-%m-%d %H:%M" memory.usedonly="True" disk.format="{left}" -t iceberg-powerline
+}
+bar {
+	status_command bumblebee-status -m docker_ps spotify disk nic cpu memory battery datetime pasink pasource -p datetime.format="%Y-%m-%d %H:%M" memory.usedonly="True" disk.format="{left}" nic.exclude="br-,veth,docker,lo" -t iceberg-powerline
+	output DP1
+	position top
 }
 
 # Mouse control
@@ -220,9 +225,9 @@ bindsym $mod+Escape exec --no-startup-id ~/.i3/bin/i3lock
 
 #Monitor control
 mode "monitor control" {
-  bindsym s         exec xrandr --output edp-1 --primary --auto --output DP-1 --off --output HDMI-1 --off
-  bindsym d         exec xrandr --output edp-1 --primary --auto --output DP-1 --off  --output HDMI-1 --auto --left-of eDP-1
-  bindsym c         exec xrandr --output DP-1 --auto --output HDMI-1 --off --output eDP-1 --primary --auto --right-of DP-1
+  bindsym s         exec xrandr --output edp1 --primary --auto --output DP1 --off --output HDMI1 --off
+  bindsym d         exec xrandr --output edp1 --primary --auto --output DP1 --off  --output HDMI1 --auto --left-of eDP1
+  bindsym c         exec xrandr --output DP1 --auto --output HDMI1 --off --output eDP1 --primary --auto --right-of DP1
   bindsym Escape mode "default"
 }
 

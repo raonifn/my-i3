@@ -1,0 +1,2 @@
+#!/bin/bash
+pacmd set-source-port 1 analog-input-headset-mic

@@ -32,10 +32,10 @@ $SCREENSHOT
 if [[ -e $IMAGE ]]; then
 #  convert $IMAGE $VIGNETTE $BLUR $PIXEL $SPREAD $CHARCOAL $PAINT $GREY $SEPIA $IMAGE
   corrupter -mag 5 -boffset 10 $IMAGE /tmp/out.png
-  i3lock -i /tmp/out.png
+  i3lock -n -i /tmp/out.png
   rm $IMAGE /tmp/out.png
 else
-  i3lock
+  i3lock -n
 fi
 
 # resume message display

@@ -22,6 +22,7 @@ cb() {
       echo "Usage: cb <string>"
       echo "       echo <string> | cb"
     else
+      #
       # Copy input to clipboard
       echo -n "$input" | xclip -selection c
       # Truncate text for status

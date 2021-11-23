@@ -3,9 +3,11 @@
 dir=$(dirname $0)
 
 killall nm-applet
-killall i3-spotify-bg
+# killall i3-spotify-bg
+# $dir/i3-spotify-bg &
 #compton -b
-xcompmgr &
-$dir/i3-spotify-bg &
+#xcompmgr &
+setxkbmap -option caps:escape
 nm-applet &
+xmodmap ~/.xmodmap
 xset -b

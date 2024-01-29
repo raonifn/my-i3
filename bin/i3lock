@@ -4,6 +4,14 @@
 # i3lock
 # scrot (optional but default)
 
+while getopts "s" opt; do
+    case "$opt" in
+    s)
+        suspend=1
+        ;;
+    esac
+done
+
 IMAGE=/tmp/i3lock.png
 SCREENSHOT="scrot $IMAGE"
 
@@ -32,10 +40,14 @@ $SCREENSHOT
 if [[ -e $IMAGE ]]; then
 #  convert $IMAGE $VIGNETTE $BLUR $PIXEL $SPREAD $CHARCOAL $PAINT $GREY $SEPIA $IMAGE
   corrupter -mag 5 -boffset 10 $IMAGE /tmp/out.png
-  i3lock -n -i /tmp/out.png
+  i3lock -i /tmp/out.png
   rm $IMAGE /tmp/out.png
 else
-  i3lock -n
+  i3lock
+fi
+
+if [[ $suspend -eq 1 ]]; then
+  systemctl suspend
 fi
 
 # resume message display
